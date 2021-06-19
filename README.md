@@ -1,5 +1,10 @@
-# [PROGRAM NAME] 
-[a description of the program]
+# Knife Hit Game 
+When run, program will display a spinning wheel at the top of 
+the screen and a set of knives at the bottom of the screen.
+Player will attempt to throw all of the knives into the
+spinning wheel without any of the knives touching. Difficulty
+will increase by round (wheel will spin faster or more knives
+will need to fit in wheel).
 
 ## Getting Started
 ---
