@@ -1,0 +1,4 @@
+By June 26: User interface (spinning wheel, knives to be thrown, level marker, etc)
+By July 3: Basic utility for playing one level, possibly advancement to second level?
+By July 10: Game should be fully functional 
+By July 17: Fix any bugs, clean up GUI, etc.
