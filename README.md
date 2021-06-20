@@ -9,7 +9,10 @@ will need to fit in wheel).
 
 ## Getting Started
 ---
-[how to install and run the program]
+You will need the Arcade library. Install with pip.
+```
+pip install arcade
+```
 
 ## Project Structure
 ---
@@ -28,7 +31,7 @@ root                    (project root folder)
 
 ## Required Technologies
 ---
-[list required libraries]
+Arcade
 
 ## Authors
 ---
