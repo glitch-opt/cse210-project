@@ -1,4 +1,5 @@
-# Knife Hit Game 
+# Knife Hit Game
+--- 
 When run, program will display a spinning wheel at the top of 
 the screen and a set of knives at the bottom of the screen.
 Player will attempt to throw all of the knives into the
@@ -31,4 +32,7 @@ root                    (project root folder)
 
 ## Authors
 ---
-[list author names and emails]
+Rebekah Cramer
+Bracken Doney
+TJ O'Brien
+Tanner Wood
