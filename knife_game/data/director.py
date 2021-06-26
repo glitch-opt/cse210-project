@@ -1,4 +1,5 @@
 import arcade
+from data.wheel import Wheel
 from enum import Enum
 from data import constants
 
@@ -22,10 +23,14 @@ class Director(arcade.Window):
         super().__init__(self.screen_width, self.screen_height, 'Knife Throw')
 
         self.current_state = GameState.MENU
+        self.wheel = None
+
+        self.wheel_list = None
 
         arcade.set_background_color(arcade.color.AVOCADO)
 
     def setup(self):
+        self.create_wheel()
         pass
     
     def draw_menu(self):
@@ -36,11 +41,11 @@ class Director(arcade.Window):
         arcade.draw_text(output, self.screen_width * 0.5, self.screen_height * 0.35, arcade.color.BLACK, align="center", anchor_x="center")
     
     def draw_game(self):
-        title = 'Knife Throw!'
-        arcade.draw_text(title, self.screen_width * .5, self.screen_height * .7, arcade.color.ARSENIC, 40, align = 'center', anchor_x = 'center')
+        self.target_list.draw()
 
-        output = 'Enter was pressed'
-        arcade.draw_text(output, self.screen_width * 0.5, self.screen_height * 0.35, arcade.color.BLACK, align="center", anchor_x="center")
+        output = f"Press <space> to shoot"
+        arcade.draw_text(output, self.SCREEN_WIDTH*0.5, self.SCREEN_HEIGHT*0.05, (255,255,255), 12,  align="center", anchor_x="center", anchor_y="center",)
+
 
     def on_draw(self):
         arcade.start_render()
@@ -60,6 +65,10 @@ class Director(arcade.Window):
         if key == arcade.key.ENTER:
             self.setup()
             self.current_state = GameState.GAME_RUNNING
+
+    def create_wheel(self):
+        self.wheel = Wheel()
+        self.wheel_list.append(self.wheel)
 
 # class MyGame(arcade.Window):
 #     """
