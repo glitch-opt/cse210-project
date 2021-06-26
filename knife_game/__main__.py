@@ -4,7 +4,8 @@ from data.director import Director
 def main():
     window = Director()
     arcade.start_render()
-    window.menu()
+    window.setup()
     arcade.run()
 
-main()
+if __name__ == "__main__":
+    main()
