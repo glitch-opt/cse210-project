@@ -41,10 +41,10 @@ class Director(arcade.Window):
         arcade.draw_text(output, self.screen_width * 0.5, self.screen_height * 0.35, arcade.color.BLACK, align="center", anchor_x="center")
     
     def draw_game(self):
-        self.target_list.draw()
+        self.wheel.draw()
 
         output = f"Press <space> to shoot"
-        arcade.draw_text(output, self.SCREEN_WIDTH*0.5, self.SCREEN_HEIGHT*0.05, (255,255,255), 12,  align="center", anchor_x="center", anchor_y="center",)
+        arcade.draw_text(output, self.screen_height * 0.5, self.screen_height * 0.05, (255,255,255), 12,  align="center", anchor_x="center", anchor_y="center",)
 
 
     def on_draw(self):
@@ -68,7 +68,7 @@ class Director(arcade.Window):
 
     def create_wheel(self):
         self.wheel = Wheel()
-        self.wheel_list.append(self.wheel)
+        # self.wheel_list.append(self.wheel)
 
 # class MyGame(arcade.Window):
 #     """
