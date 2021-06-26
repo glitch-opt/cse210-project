@@ -25,7 +25,7 @@ class Director(arcade.Window):
         self.current_state = GameState.MENU
         self.wheel = None
 
-        self.wheel_list = None
+        self.wheel_list = arcade.SpriteList()
 
         arcade.set_background_color(arcade.color.AVOCADO)
 
@@ -41,7 +41,7 @@ class Director(arcade.Window):
         arcade.draw_text(output, self.screen_width * 0.5, self.screen_height * 0.35, arcade.color.BLACK, align="center", anchor_x="center")
     
     def draw_game(self):
-        self.wheel.draw()
+        self.wheel_list.draw()
 
         output = f"Press <space> to shoot"
         arcade.draw_text(output, self.screen_height * 0.5, self.screen_height * 0.05, (255,255,255), 12,  align="center", anchor_x="center", anchor_y="center",)
@@ -68,7 +68,7 @@ class Director(arcade.Window):
 
     def create_wheel(self):
         self.wheel = Wheel()
-        # self.wheel_list.append(self.wheel)
+        self.wheel_list.append(self.wheel)
 
 # class MyGame(arcade.Window):
 #     """
