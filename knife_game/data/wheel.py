@@ -1,4 +1,5 @@
 import arcade
+import math
 from data import constants
 
 class Wheel(arcade.Sprite):
@@ -9,6 +10,7 @@ class Wheel(arcade.Sprite):
         self.screen_height = constants.SCREEN_HEIGHT
         self.wheel_position = (self.screen_width // 2, self.screen_height * (0.7))
         self.wheel_rotation_speed = 2
+        self.speed = 0
 
         super().__init__(self.image, .5)
 
@@ -16,3 +18,10 @@ class Wheel(arcade.Sprite):
         self.center_y = self.wheel_position[1]
 
         self.original_position = self.center_y
+    
+    def update(self):
+        # # Convert angle in degrees to radians.
+        # angle_rad = math.radians(self.angle)
+
+        self.change_angle = self.wheel_rotation_speed
+        self.angle += self.change_angle

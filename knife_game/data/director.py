@@ -24,6 +24,7 @@ class Director(arcade.Window):
         super().__init__(self.screen_width, self.screen_height, 'Knife Throw')
 
         self.current_state = GameState.MENU
+        self.level = 1
         self.wheel = Wheel()
         self.knife = Knife()
 
@@ -38,6 +39,10 @@ class Director(arcade.Window):
         self.wheel_list = arcade.SpriteList()
 
         self.knife_count = 5
+        # self.new_knife = None
+        for i in range(self.knife_count):
+            self.new_knife = Knife()
+            self.knife_list.append(self.new_knife)
 
         self.create_knife()
 
@@ -54,8 +59,11 @@ class Director(arcade.Window):
         self.knife_list.draw()
         self.wheel_list.draw()
 
+        level_display = f'Level: {self.level}'
+        arcade.draw_text(level_display, self.screen_width * 0.5, self.screen_height * 0.975, (255,255,255), 14,  align="center", anchor_x="center", anchor_y="center")
+
         output = f"Press <space> to shoot"
-        arcade.draw_text(output, self.screen_height * 0.5, self.screen_height * 0.05, (255,255,255), 12,  align="center", anchor_x="center", anchor_y="center",)
+        arcade.draw_text(output, self.screen_height * 0.5, self.screen_height * 0.05, (255,255,255), 12,  align="center", anchor_x="center", anchor_y="center")
 
 
     def on_draw(self):
@@ -72,8 +80,10 @@ class Director(arcade.Window):
 
         if key == arcade.key.SPACE and self.current_state == GameState.GAME_RUNNING:
             self.knife.throw()
+
     def on_update(self, delta_time):
         self.knife.update()
+        self.wheel.update()
 
     def create_wheel(self):
         self.wheel_list.append(self.wheel)
