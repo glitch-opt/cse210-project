@@ -1,5 +1,6 @@
 import arcade
 from data.wheel import Wheel
+from data.knife import Knife
 from enum import Enum
 from data import constants
 
@@ -24,14 +25,23 @@ class Director(arcade.Window):
 
         self.current_state = GameState.MENU
         self.wheel = None
+        self.knife = None
 
-        self.wheel_list = arcade.SpriteList()
+        self.knife_list = None
+        self.wheel_list = None
+        self.knife_count = None
 
         arcade.set_background_color(arcade.color.AVOCADO)
 
     def setup(self):
+        self.knife_list = arcade.SpriteList()
+        self.wheel_list = arcade.SpriteList()
+
+        self.knife_count = 5
+
+        self.create_knife()
+
         self.create_wheel()
-        pass
     
     def draw_menu(self):
         title = 'Knife Throw!'
@@ -41,6 +51,7 @@ class Director(arcade.Window):
         arcade.draw_text(output, self.screen_width * 0.5, self.screen_height * 0.35, arcade.color.BLACK, align="center", anchor_x="center")
     
     def draw_game(self):
+        self.knife_list.draw()
         self.wheel_list.draw()
 
         output = f"Press <space> to shoot"
@@ -69,6 +80,10 @@ class Director(arcade.Window):
     def create_wheel(self):
         self.wheel = Wheel()
         self.wheel_list.append(self.wheel)
+
+    def create_knife(self):
+        self.knife = Knife()
+        self.knife_list.append(self.knife)
 
 # class MyGame(arcade.Window):
 #     """
