@@ -12,3 +12,12 @@ class Knife(arcade.Sprite):
 
         self.center_x = self.knife_position[0]
         self.center_y = self.knife_position[1]
+        self.change_y = 0
+
+    def throw(self):
+        self.change_y = constants.KNIFE_THROWN_MOVEMENT_SPEED
+    
+    def update(self):
+        self.center_y += self.change_y
+        
+        

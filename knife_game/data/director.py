@@ -24,8 +24,8 @@ class Director(arcade.Window):
         super().__init__(self.screen_width, self.screen_height, 'Knife Throw')
 
         self.current_state = GameState.MENU
-        self.wheel = None
-        self.knife = None
+        self.wheel = Wheel()
+        self.knife = Knife()
 
         self.knife_list = None
         self.wheel_list = None
@@ -62,27 +62,23 @@ class Director(arcade.Window):
         arcade.start_render()
 
         if self.current_state == GameState.MENU:
-         self.draw_menu()
+            self.draw_menu()
         elif self.current_state == GameState.GAME_RUNNING:
             self.draw_game()
 
     def on_key_press(self, key, key_modifiers):
-        """
-        Called whenever a key on the keyboard is pressed.
-
-        For a full list of keys, see:
-        https://arcade.academy/arcade.key.html
-        """
-        if key == arcade.key.ENTER:
-            self.setup()
+        if key == arcade.key.ENTER and self.current_state == GameState.MENU:
             self.current_state = GameState.GAME_RUNNING
 
+        if key == arcade.key.SPACE and self.current_state == GameState.GAME_RUNNING:
+            self.knife.throw()
+    def on_update(self, delta_time):
+        self.knife.update()
+
     def create_wheel(self):
-        self.wheel = Wheel()
         self.wheel_list.append(self.wheel)
 
     def create_knife(self):
-        self.knife = Knife()
         self.knife_list.append(self.knife)
 
 # class MyGame(arcade.Window):
