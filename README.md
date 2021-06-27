@@ -1,4 +1,4 @@
-# Knife Hit Game
+# Knife Throw Game
 --- 
 When run, program will display a spinning wheel at the top of 
 the screen and a set of knives at the bottom of the screen.
@@ -38,4 +38,3 @@ Arcade
 Rebekah Cramer
 Bracken Doney
 TJ O'Brien
-Tanner Wood
