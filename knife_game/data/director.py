@@ -14,6 +14,9 @@ class GameState(Enum):
     GAME_OVER = 4
 
 class Director(arcade.Window):
+    """
+    Main game controll class
+    """
 
     def __init__(self):
         self.screen_width = constants.SCREEN_WIDTH
@@ -36,6 +39,10 @@ class Director(arcade.Window):
         arcade.set_background_color(arcade.color.AVOCADO)
 
     def setup(self):
+        """
+        Initialization of all the game variables
+        """
+
         self.knife_list = arcade.SpriteList()
         self.wheel_list = arcade.SpriteList()
         self.knife_count_list_display = arcade.SpriteList()
@@ -54,6 +61,10 @@ class Director(arcade.Window):
         self.create_knife_count_display()
     
     def draw_menu(self):
+        """
+        Method that creates the main menu
+        """
+
         title = 'Knife Throw!'
         arcade.draw_text(title, self.screen_width * .5, self.screen_height * .7, arcade.color.ARSENIC, 40, align = 'center', anchor_x = 'center')
 
@@ -61,6 +72,10 @@ class Director(arcade.Window):
         arcade.draw_text(output, self.screen_width * 0.5, self.screen_height * 0.35, arcade.color.BLACK, align="center", anchor_x="center")
     
     def draw_game(self):
+        """
+        Method that creates the game view
+        """
+
         self.knife_list.draw()
         self.wheel_list.draw()
         self.knife_count_list_display.draw()
@@ -73,6 +88,10 @@ class Director(arcade.Window):
 
 
     def on_draw(self):
+        """
+        Render screen
+        """
+
         arcade.start_render()
 
         if self.current_state == GameState.MENU:
@@ -81,6 +100,9 @@ class Director(arcade.Window):
             self.draw_game()
 
     def on_key_press(self, key, key_modifiers):
+        """
+        Handle all key presses
+        """
         if key == arcade.key.ENTER and self.current_state == GameState.MENU:
             self.current_state = GameState.GAME_RUNNING
 
@@ -92,16 +114,30 @@ class Director(arcade.Window):
             self.knife_count_list_display[-knife_used].alpha = (0)
 
     def on_update(self, delta_time):
+        """
+        Game logic
+        """
         self.knife.update()
         self.wheel.update()
 
     def create_wheel(self):
+        """
+        Create the wheel
+        """
+
         self.wheel_list.append(self.wheel)
 
     def create_knife(self):
+        """
+        Create the knife
+        """
+
         self.knife_list.append(self.knife)
 
     def create_knife_count_display(self):
+        """
+        Create knife count display
+        """
 
         for i in range(self.knife_count):
             self.knife_count_display = KnifeCount('background', i)

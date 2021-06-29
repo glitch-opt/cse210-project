@@ -2,8 +2,14 @@ import arcade
 from data import constants
 
 class KnifeCount(arcade.Sprite):
+    """
+    Display class for number of Knives
+    """
 
     def __init__(self, image_name, knife_count):
+        """
+        Initialization for the knife display
+        """
 
         self.main_img = "knife_game/assets/images/foreground.png"
         self.background_img = "knife_game/assets/images/background.png"

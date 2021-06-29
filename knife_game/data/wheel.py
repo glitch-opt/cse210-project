@@ -3,8 +3,15 @@ import math
 from data import constants
 
 class Wheel(arcade.Sprite):
+    """
+    Display class for the wheel
+    """
 
     def __init__(self):
+        """
+        Initialization of wheel
+        """
+
         self.image = "knife_game/assets/images/wheel.png"
         self.screen_width = constants.SCREEN_WIDTH
         self.screen_height = constants.SCREEN_HEIGHT
@@ -20,6 +27,9 @@ class Wheel(arcade.Sprite):
         self.original_position = self.center_y
     
     def update(self):
+        """
+        Movement of wheel
+        """
         # # Convert angle in degrees to radians.
         # angle_rad = math.radians(self.angle)
 
