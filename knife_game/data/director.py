@@ -1,12 +1,9 @@
 import arcade
 from data.wheel import Wheel
 from data.knife import Knife
+from data.knifecount import KnifeCount
 from enum import Enum
 from data import constants
-
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
-SCREEN_TITLE = "Starting Template"
 
 class GameState(Enum):
     """ Store game state in enum """
@@ -30,15 +27,21 @@ class Director(arcade.Window):
 
         self.knife_list = None
         self.wheel_list = None
+        self.knife_count_display = None
+        self.knife_count_list_display = None
         self.knife_count = None
+
+        self.start_knife_count = None
 
         arcade.set_background_color(arcade.color.AVOCADO)
 
     def setup(self):
         self.knife_list = arcade.SpriteList()
         self.wheel_list = arcade.SpriteList()
+        self.knife_count_list_display = arcade.SpriteList()
 
         self.knife_count = 5
+        self.start_knife_count = self.knife_count
         # self.new_knife = None
         for i in range(self.knife_count):
             self.new_knife = Knife()
@@ -47,6 +50,8 @@ class Director(arcade.Window):
         self.create_knife()
 
         self.create_wheel()
+
+        self.create_knife_count_display()
     
     def draw_menu(self):
         title = 'Knife Throw!'
@@ -58,6 +63,7 @@ class Director(arcade.Window):
     def draw_game(self):
         self.knife_list.draw()
         self.wheel_list.draw()
+        self.knife_count_list_display.draw()
 
         level_display = f'Level: {self.level}'
         arcade.draw_text(level_display, self.screen_width * 0.5, self.screen_height * 0.975, (255,255,255), 14,  align="center", anchor_x="center", anchor_y="center")
@@ -78,8 +84,12 @@ class Director(arcade.Window):
         if key == arcade.key.ENTER and self.current_state == GameState.MENU:
             self.current_state = GameState.GAME_RUNNING
 
-        if key == arcade.key.SPACE and self.current_state == GameState.GAME_RUNNING:
+        if key == arcade.key.SPACE and self.knife_count > 0 and self.current_state == GameState.GAME_RUNNING:
+            self.knife_count -= 1
             self.knife.throw()
+
+            knife_used = self.start_knife_count - self.knife_count
+            self.knife_count_list_display[-knife_used].alpha = (0)
 
     def on_update(self, delta_time):
         self.knife.update()
@@ -91,63 +101,13 @@ class Director(arcade.Window):
     def create_knife(self):
         self.knife_list.append(self.knife)
 
-# class MyGame(arcade.Window):
-#     """
-#     Main application class.
+    def create_knife_count_display(self):
 
-#     NOTE: Go ahead and delete the methods you don't need.
-#     If you do need a method, delete the 'pass' and replace it
-#     with your own code. Don't leave 'pass' in this program.
-#     """
+        for i in range(self.knife_count):
+            self.knife_count_display = KnifeCount('background', i)
+            self.knife_count_list_display.append(self.knife_count_display)
 
-#     def __init__(self, width, height, title):
-#         super().__init__(width, height, title)
-
-#         arcade.set_background_color(arcade.color.AMAZON)
-
-#         self.director = Director()
-
-#         # If you have sprite lists, you should create them here,
-#         # and set them to None
-
-#     def setup(self):
-#         """ Set up the game variables. Call to re-start the game. """
-#         # Create your sprites and sprite lists here
-#         pass
-
-#     def on_draw(self):
-#         """
-#         Render the screen.
-#         """
-
-#         # This command should happen before we start drawing. It will clear
-#         # the screen to the background color, and erase what we drew last frame.
-#         arcade.start_render()
-
-#         # Call draw() on all your sprite lists below
-
-#     def on_update(self, delta_time):
-#         """
-#         All the logic to move, and the game logic goes here.
-#         Normally, you'll call update() on the sprite lists that
-#         need it.
-#         """
-#         pass
-
-#     def on_key_press(self, key, key_modifiers):
-#         """
-#         Called whenever a key on the keyboard is pressed.
-
-#         For a full list of keys, see:
-#         https://arcade.academy/arcade.key.html
-#         """
-#         if key == arcade.key.SPACE:
-#             self.setup()
-#             self.director.current_state = GameState.GAME_RUNNING
-
-
-#     def on_mouse_press(self, x, y, button, key_modifiers):
-#         """
-#         Called when the user presses a mouse button.
-#         """
-#         pass
+        for i in range(self.knife_count):
+            self.knife_count_display = KnifeCount('foreground', i)
+            self.knife_count_list_display.append(self.knife_count_display)
+            
