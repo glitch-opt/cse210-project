@@ -1,9 +1,18 @@
 import arcade
+import math
 from data import constants
 
 class Knife(arcade.Sprite):
+    """
+    Display class for the Knife
+    """
+
     def __init__(self):
-        self.image = "knife_game/assets/images/knife.png"
+        """
+        Initialization of knife
+        """
+
+        self.image = constants.KNIFE_IMAGE
         self.screen_width = constants.SCREEN_WIDTH
         self.screen_height = constants.SCREEN_HEIGHT
         self.knife_position = (self.screen_width // 2, self.screen_height * (0.2))
@@ -14,10 +23,42 @@ class Knife(arcade.Sprite):
         self.center_y = self.knife_position[1]
         self.change_y = 0
 
+        self.rotation = 0
+        self.wheel_hit = False
+        self.knife_hit = False
+
+        self.stuck_in_wheel = None
+
     def throw(self):
+        """" Throw the knife """
+
         self.change_y = constants.KNIFE_THROWN_MOVEMENT_SPEED
+
+    def hit_wheel(self, wheel):
+        self.stuck_in_wheel = wheel
+        self.wheel_hit = True
+
+        self.rotation_radius = (self.stuck_in_wheel.height/2)
+        self.rotation_center = self.stuck_in_wheel.wheel_position
+
+    def throw_knife(self, wheel):
+        self.stuck_in_wheel = wheel
+        self.knife_hit = True
     
     def update(self):
-        self.center_y += self.change_y
+        if self.knife_hit:
+            self.rotation_speed = self.stuck_in_wheel.Wheel_rotation_speed
+            self.center_y += -30
+            self.center_x += self.rotation_speed*20
+            self.angle += self.rotation_speed*20
+        else:
+            self.center_y += self.change_y
+
+        if self.wheel_hit:
+            self.rotation_speed = self.stuck_in_wheel.wheel_rotation_speed
+            self.rotation += self.rotation_speed
+            self.angle = self.rotation
+            self.center_x = (self.rotation_radius * math.cos(math.radians(self.rotation+270))) + self.rotation_center[0]
+            self.center_y = (self.rotation_radius * math.sin(math.radians(self.rotation+270))) + self.rotation_center[1]
         
         

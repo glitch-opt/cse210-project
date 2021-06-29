@@ -12,7 +12,7 @@ class Wheel(arcade.Sprite):
         Initialization of wheel
         """
 
-        self.image = "knife_game/assets/images/wheel.png"
+        self.image = constants.WHEEL_IMAGE
         self.screen_width = constants.SCREEN_WIDTH
         self.screen_height = constants.SCREEN_HEIGHT
         self.wheel_position = (self.screen_width // 2, self.screen_height * (0.7))
@@ -35,3 +35,4 @@ class Wheel(arcade.Sprite):
 
         self.change_angle = self.wheel_rotation_speed
         self.angle += self.change_angle
+

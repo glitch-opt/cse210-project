@@ -34,6 +34,9 @@ class Director(arcade.Window):
         self.knife_count_list_display = None
         self.knife_count = None
 
+        self.wheel_collider = None
+        self.wheel_collider_list = None
+
         self.start_knife_count = None
 
         arcade.set_background_color(arcade.color.AVOCADO)
@@ -49,16 +52,20 @@ class Director(arcade.Window):
 
         self.knife_count = 5
         self.start_knife_count = self.knife_count
+
+        self.wheel_collider_list = arcade.SpriteList()
         # self.new_knife = None
-        for i in range(self.knife_count):
-            self.new_knife = Knife()
-            self.knife_list.append(self.new_knife)
+        # for i in range(self.knife_count):
+        #     self.new_knife = Knife()
+        #     self.knife_list.append(self.new_knife)
 
         self.create_knife()
 
         self.create_wheel()
 
         self.create_knife_count_display()
+
+        self.create_wheel_collider()
     
     def draw_menu(self):
         """
@@ -120,6 +127,15 @@ class Director(arcade.Window):
         self.knife.update()
         self.wheel.update()
 
+        wheel_hit_list = arcade.check_for_collision_with_list(self.knife, self.wheel_collider_list)
+        if not self.knife.wheel_hit and not self.knife.knife_hit:
+            for collided_object in wheel_hit_list:
+                rotation_radius = (self.wheel_collider.height / 2) + 30
+                self.knife.hit_wheel(self.wheel)
+
+                if self.knife_count > 0:
+                    self.create_knife()
+
     def create_wheel(self):
         """
         Create the wheel
@@ -131,7 +147,7 @@ class Director(arcade.Window):
         """
         Create the knife
         """
-
+        self.knife = Knife()
         self.knife_list.append(self.knife)
 
     def create_knife_count_display(self):
@@ -146,4 +162,8 @@ class Director(arcade.Window):
         for i in range(self.knife_count):
             self.knife_count_display = KnifeCount('foreground', i)
             self.knife_count_list_display.append(self.knife_count_display)
+
+    def create_wheel_collider(self):
+        self.wheel_collider = Wheel()
+        self.wheel_collider_list.append(self.wheel_collider)
             

@@ -11,8 +11,8 @@ class KnifeCount(arcade.Sprite):
         Initialization for the knife display
         """
 
-        self.main_img = "knife_game/assets/images/foreground.png"
-        self.background_img = "knife_game/assets/images/background.png"
+        self.main_img = constants.KNIFE_COUNT_MAIN
+        self.background_img = constants.KNIFE_COUNT_BACKGROUND
         self.screen_width = constants.SCREEN_WIDTH
         self.screen_height = constants.SCREEN_HEIGHT
 
