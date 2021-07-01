@@ -25,8 +25,8 @@ class Director(arcade.Window):
 
         self.current_state = GameState.MENU
         self.level = 1
-        self.wheel = Wheel()
-        self.knife = Knife()
+        self.wheel = None
+        self.knife = None
 
         self.knife_list = None
         self.wheel_list = None
@@ -50,11 +50,6 @@ class Director(arcade.Window):
 
         self.knife_count = 5
         self.start_knife_count = self.knife_count
-
-        # self.new_knife = None
-        # for i in range(self.knife_count):
-        #     self.new_knife = Knife()
-        #     self.knife_list.append(self.new_knife)
 
         self.create_knife()
 
@@ -119,12 +114,12 @@ class Director(arcade.Window):
         """
         Game logic
         """
-        self.knife.update()
-        self.wheel.update()
+        self.knife_list.update()
+        self.wheel_list.update()
 
         wheel_hit_list = arcade.check_for_collision_with_list(self.knife, self.wheel_list)
-        if not self.knife.wheel_hit and not self.knife.knife_hit:
-            for collide_object in wheel_hit_list:
+        if not self.knife.wheel_hit:
+            for x in wheel_hit_list:
 
                 self.knife.hit_wheel(self.wheel)
 
@@ -135,7 +130,7 @@ class Director(arcade.Window):
         """
         Create the wheel
         """
-
+        self.wheel = Wheel()
         self.wheel_list.append(self.wheel)
 
     def create_knife(self):

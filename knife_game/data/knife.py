@@ -36,23 +36,16 @@ class Knife(arcade.Sprite):
 
     def hit_wheel(self, wheel):
         self.stuck_in_wheel = wheel
+
         self.wheel_hit = True
+        self.change_y = 0
 
-        self.rotation_radius = (self.stuck_in_wheel.height/2)
+        self.rotation_radius = (self.stuck_in_wheel.height / 2)
         self.rotation_center = self.stuck_in_wheel.wheel_position
-
-    def throw_knife(self, wheel):
-        self.stuck_in_wheel = wheel
-        self.knife_hit = True
     
     def update(self):
-        if self.knife_hit:
-            self.rotation_speed = self.stuck_in_wheel.Wheel_rotation_speed
-            self.center_y += -30
-            self.center_x += self.rotation_speed*20
-            self.angle += self.rotation_speed*20
-        else:
-            self.center_y += self.change_y
+
+        self.center_y += self.change_y
 
         if self.wheel_hit:
             self.rotation_speed = self.stuck_in_wheel.wheel_rotation_speed
