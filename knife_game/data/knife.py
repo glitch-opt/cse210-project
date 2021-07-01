@@ -25,7 +25,6 @@ class Knife(arcade.Sprite):
 
         self.rotation = 0
         self.wheel_hit = False
-        self.knife_hit = False
 
         self.stuck_in_wheel = None
 
@@ -35,6 +34,11 @@ class Knife(arcade.Sprite):
         self.change_y = constants.KNIFE_THROWN_MOVEMENT_SPEED
 
     def hit_wheel(self, wheel):
+        '''Initializes the wheel hit state
+        
+        Args:
+            wheel (Wheel): A Wheel object
+        '''
         self.stuck_in_wheel = wheel
 
         self.wheel_hit = True
@@ -44,7 +48,7 @@ class Knife(arcade.Sprite):
         self.rotation_center = self.stuck_in_wheel.wheel_position
     
     def update(self):
-
+        '''Updates the knife state/position'''
         self.center_y += self.change_y
 
         if self.wheel_hit:

@@ -1,6 +1,8 @@
 import arcade
+import random
 from data.wheel import Wheel
 from data.knife import Knife
+from data.target import Target
 from data.knifecount import KnifeCount
 from enum import Enum
 from data import constants
@@ -27,9 +29,11 @@ class Director(arcade.Window):
         self.level = 1
         self.wheel = None
         self.knife = None
+        self.target = None
 
         self.knife_list = None
         self.wheel_list = None
+        self.target_list = None
         self.knife_count_display = None
         self.knife_count_list_display = None
         self.knife_count = None
@@ -46,6 +50,7 @@ class Director(arcade.Window):
 
         self.knife_list = arcade.SpriteList()
         self.wheel_list = arcade.SpriteList()
+        self.target_list = arcade.SpriteList()
         self.knife_count_list_display = arcade.SpriteList()
 
         self.knife_count = 5
@@ -56,6 +61,8 @@ class Director(arcade.Window):
         self.create_wheel()
 
         self.create_knife_count_display()
+
+        self.place_targets()
     
     def draw_menu(self):
         """
@@ -75,6 +82,7 @@ class Director(arcade.Window):
 
         self.knife_list.draw()
         self.wheel_list.draw()
+        self.target_list.draw()
         self.knife_count_list_display.draw()
 
         level_display = f'Level: {self.level}'
@@ -116,11 +124,11 @@ class Director(arcade.Window):
         """
         self.knife_list.update()
         self.wheel_list.update()
+        self.target_list.update()
 
         wheel_hit_list = arcade.check_for_collision_with_list(self.knife, self.wheel_list)
         if not self.knife.wheel_hit:
             for x in wheel_hit_list:
-
                 self.knife.hit_wheel(self.wheel)
 
                 if self.knife_count > 0:
@@ -153,3 +161,34 @@ class Director(arcade.Window):
             self.knife_count_display = KnifeCount('foreground', i)
             self.knife_count_list_display.append(self.knife_count_display)
             
+    def place_targets(self):
+        """
+        Place targets on the wheel
+        """
+        target_count = random.randint(1, constants.MAX_TARGET_COUNT)
+        positions = []
+        for x in range(target_count):
+            position_set = False
+            
+            while not position_set:
+                target_position = random.randint(0, 359)
+                print(target_position)
+
+                too_close = 0
+                for target in self.target_list:
+                    distance = abs(self.target.initial_target_position - target_position)
+                    if distance < 10 or distance > 350:
+                        too_close += 1
+                if too_close == 0:
+                    position_set = True
+            
+            positions.append(target_position)
+
+        print(positions)
+        for i in positions:
+            self.target = Target(i)
+            self.target_list.append(self.target)
+            
+
+            for i in range(len(self.target_list)):
+                print(self.target.initial_target_position)
