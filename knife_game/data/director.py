@@ -38,6 +38,7 @@ class Director(arcade.Window):
         self.knife_count_list_display = None
         self.knife_count = None
 
+        self.score = 0
 
         self.start_knife_count = None
 
@@ -91,6 +92,9 @@ class Director(arcade.Window):
         output = f"Press <space> to shoot"
         arcade.draw_text(output, self.screen_height * 0.5, self.screen_height * 0.05, (255,255,255), 12,  align="center", anchor_x="center", anchor_y="center")
 
+        output = f"{self.score}"
+        arcade.draw_text(output, self.screen_width * 0.1, self.screen_height * 0.95, (239, 182, 90), 28,  align="center", anchor_x="center", anchor_y="center")
+
 
     def on_draw(self):
         """
@@ -129,10 +133,26 @@ class Director(arcade.Window):
         wheel_hit_list = arcade.check_for_collision_with_list(self.knife, self.wheel_list)
         if not self.knife.wheel_hit:
             for x in wheel_hit_list:
+                self.score -= 1
                 self.knife.hit_wheel(self.wheel)
 
                 if self.knife_count > 0:
                     self.create_knife()
+
+        target_hit_list = arcade.check_for_collision_with_list(self.knife, self.target_list)
+        if not self.knife.target_hit:
+            for x in target_hit_list:
+                self.score += 1
+                self.knife.hit_target(self.wheel)
+
+                if self.knife_count > 0:
+                    self.create_knife()
+
+        knife_hit_list = arcade.check_for_collision_with_list(self.knife, self.knife_list)
+        if not self.knife.knife_hit:
+            for x in knife_hit_list:
+                self.score -= 1
+                self.knife.hit_knife(self.wheel)
 
     def create_wheel(self):
         """
@@ -184,11 +204,6 @@ class Director(arcade.Window):
             
             positions.append(target_position)
 
-        print(positions)
         for i in positions:
             self.target = Target(i)
             self.target_list.append(self.target)
-            
-
-            for i in range(len(self.target_list)):
-                print(self.target.initial_target_position)
