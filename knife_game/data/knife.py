@@ -60,9 +60,9 @@ class Knife(arcade.Sprite):
         self.rotation_radius = (self.stuck_in_wheel.height / 1.5)
         self.rotation_center = self.stuck_in_wheel.wheel_position
 
-    def hit_knife(self, wheel):
-        self.stuck_in_wheel = wheel
-        self.knife_hit = True
+    # def hit_knife(self, wheel):
+    #     self.stuck_in_wheel = wheel
+    #     self.knife_hit = True
     
     def update(self):
         '''Updates the knife state/position'''

@@ -38,7 +38,7 @@ class Director(arcade.Window):
         self.knife_count_list_display = None
         self.knife_count = None
 
-        self.score = 0
+        self.score = None
 
         self.start_knife_count = None
 
@@ -54,6 +54,7 @@ class Director(arcade.Window):
         self.target_list = arcade.SpriteList()
         self.knife_count_list_display = arcade.SpriteList()
 
+        self.score = 0
         self.knife_count = 5
         self.start_knife_count = self.knife_count
 
@@ -95,6 +96,13 @@ class Director(arcade.Window):
         output = f"{self.score}"
         arcade.draw_text(output, self.screen_width * 0.1, self.screen_height * 0.95, (239, 182, 90), 28,  align="center", anchor_x="center", anchor_y="center")
 
+    def draw_end(self):
+        """Method that draws the end screen: displays score, and asks player to play again"""
+        score = f"Your score was: {self.score}"
+        arcade.draw_text(score, self.screen_width * .5, self.screen_height * .7, arcade.color.ARSENIC, 40, align = 'center', anchor_x = 'center')
+
+        output = "Press ENTER to play again!"
+        arcade.draw_text(output, self.screen_width * 0.5, self.screen_height * 0.35, arcade.color.BLACK, align="center", anchor_x="center")
 
     def on_draw(self):
         """
@@ -107,12 +115,15 @@ class Director(arcade.Window):
             self.draw_menu()
         elif self.current_state == GameState.GAME_RUNNING:
             self.draw_game()
+        elif self.current_state == GameState.GAME_OVER:
+            self.draw_end()
 
     def on_key_press(self, key, key_modifiers):
         """
         Handle all key presses
         """
-        if key == arcade.key.ENTER and self.current_state == GameState.MENU:
+        if key == arcade.key.ENTER and self.current_state == GameState.MENU or self.current_state == GameState.GAME_OVER:
+            self.setup()
             self.current_state = GameState.GAME_RUNNING
 
         if key == arcade.key.SPACE and self.knife_count > 0 and self.current_state == GameState.GAME_RUNNING:
@@ -148,11 +159,19 @@ class Director(arcade.Window):
                 if self.knife_count > 0:
                     self.create_knife()
 
-        knife_hit_list = arcade.check_for_collision_with_list(self.knife, self.knife_list)
-        if not self.knife.knife_hit:
-            for x in knife_hit_list:
-                self.score -= 1
-                self.knife.hit_knife(self.wheel)
+        keep_running = 0
+        for knife in self.knife_list:
+            if not knife.wheel_hit:
+                keep_running += 1
+        
+        if keep_running == 0:
+            self.current_state = GameState.GAME_OVER
+
+        # knife_hit_list = arcade.check_for_collision_with_list(self.knife, self.knife_list)
+        # if not self.knife.knife_hit:
+        #     for x in knife_hit_list:
+        #         self.score -= 1
+        #         self.knife.hit_knife(self.wheel)
 
     def create_wheel(self):
         """
@@ -185,25 +204,42 @@ class Director(arcade.Window):
         """
         Place targets on the wheel
         """
-        target_count = random.randint(1, constants.MAX_TARGET_COUNT)
+        # target_count = random.randint(1, constants.MAX_TARGET_COUNT)
+        target_count = 1
         positions = []
         for x in range(target_count):
             position_set = False
             
             while not position_set:
                 target_position = random.randint(0, 359)
-                print(target_position)
+                # print(target_position)
 
                 too_close = 0
                 for target in self.target_list:
-                    distance = abs(self.target.initial_target_position - target_position)
+                    distance = abs(target.initial_target_position - target_position)
                     if distance < 10 or distance > 350:
                         too_close += 1
                 if too_close == 0:
                     position_set = True
             
             positions.append(target_position)
+            target = Target(target_position)
+            self.target_list.append(target)
+        for i in self.target_list:
+            print(i.initial_target_position)
 
-        for i in positions:
-            self.target = Target(i)
-            self.target_list.append(self.target)
+        # print(positions)
+        # # test_list = []
+        # # for i in positions:
+        # #     new_target = Target(i)
+        # #     test_list.append(new_target)
+
+
+        # for i in positions:
+        #     target = Target(i)
+        #     self.target_list.append(target)
+
+        # for x in self.target_list:
+        #     print(x.initial_target_position)
+        #     print(i)
+            
