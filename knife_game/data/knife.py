@@ -51,6 +51,9 @@ class Knife(arcade.Sprite):
         self.rotation_center = self.stuck_in_wheel.wheel_position
 
     def hit_target(self, wheel):
+        '''
+        Initializes the wheel hit and the target hit state
+        '''
         self.stuck_in_wheel = wheel
 
         self.target_hit = True

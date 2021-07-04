@@ -97,7 +97,9 @@ class Director(arcade.Window):
         arcade.draw_text(output, self.screen_width * 0.1, self.screen_height * 0.95, (239, 182, 90), 28,  align="center", anchor_x="center", anchor_y="center")
 
     def draw_end(self):
-        """Method that draws the end screen: displays score, and asks player to play again"""
+        """
+        Method that draws the end screen: displays score, and asks player to play again
+        """
         score = f"Your score was: {self.score}"
         arcade.draw_text(score, self.screen_width * .5, self.screen_height * .7, arcade.color.ARSENIC, 40, align = 'center', anchor_x = 'center')
 
