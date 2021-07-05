@@ -22,7 +22,7 @@ class Target(arcade.Sprite):
 
         super().__init__(self.image, .05)
 
-        self.rotation = 0
+        self.rotation = position
 
 
     def update(self):

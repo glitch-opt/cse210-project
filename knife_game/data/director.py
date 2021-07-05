@@ -206,15 +206,13 @@ class Director(arcade.Window):
         """
         Place targets on the wheel
         """
-        # target_count = random.randint(1, constants.MAX_TARGET_COUNT)
-        target_count = 1
+        target_count = random.randint(1, constants.MAX_TARGET_COUNT)
         positions = []
         for x in range(target_count):
             position_set = False
             
             while not position_set:
                 target_position = random.randint(0, 359)
-                # print(target_position)
 
                 too_close = 0
                 for target in self.target_list:
@@ -225,23 +223,5 @@ class Director(arcade.Window):
                     position_set = True
             
             positions.append(target_position)
-            target = Target(target_position)
+            target = Target(positions[-1])
             self.target_list.append(target)
-        for i in self.target_list:
-            print(i.initial_target_position)
-
-        # print(positions)
-        # # test_list = []
-        # # for i in positions:
-        # #     new_target = Target(i)
-        # #     test_list.append(new_target)
-
-
-        # for i in positions:
-        #     target = Target(i)
-        #     self.target_list.append(target)
-
-        # for x in self.target_list:
-        #     print(x.initial_target_position)
-        #     print(i)
-            
