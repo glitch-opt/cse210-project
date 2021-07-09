@@ -1,7 +1,6 @@
 import arcade
 import math
 from data import constants
-from data.wheel import Wheel
 
 class Target(arcade.Sprite):
     '''Class for targets on wheel for player to aim at.
@@ -11,10 +10,10 @@ class Target(arcade.Sprite):
 
     Attributes:
     '''
-    def __init__(self, position):
+    def __init__(self, position, wheel):
         '''The class initializer'''
         self.image = constants.TARGET_IMAGE
-        self.wheel = Wheel()
+        self.wheel = wheel
         self.rotation_speed = self.wheel.wheel_rotation_speed
         self.rotation_radius = self.wheel.height / 2
         self.rotation_center = self.wheel.wheel_position

@@ -11,7 +11,6 @@ class Knife(arcade.Sprite):
         """
         Initialization of knife
         """
-
         self.image = constants.KNIFE_IMAGE
         self.screen_width = constants.SCREEN_WIDTH
         self.screen_height = constants.SCREEN_HEIGHT
@@ -33,7 +32,6 @@ class Knife(arcade.Sprite):
 
     def throw(self):
         """" Throw the knife """
-
         self.change_y = constants.KNIFE_THROWN_MOVEMENT_SPEED
 
     def hit_wheel(self, wheel):
@@ -62,13 +60,11 @@ class Knife(arcade.Sprite):
 
         self.rotation_radius = (self.stuck_in_wheel.height / 1.5)
         self.rotation_center = self.stuck_in_wheel.wheel_position
-
-    # def hit_knife(self, wheel):
-    #     self.stuck_in_wheel = wheel
-    #     self.knife_hit = True
     
     def update(self):
-        '''Updates the knife state/position'''
+        '''
+        Updates the knife state/position
+        '''
         self.center_y += self.change_y
 
         if self.wheel_hit:

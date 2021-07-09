@@ -9,7 +9,6 @@ from data import constants
 
 class GameState(Enum):
     """ Store game state in enum """
-
     MENU = 1
     GAME_RUNNING = 2
     TARGET_DEFEATED = 3
@@ -17,16 +16,15 @@ class GameState(Enum):
 
 class Director(arcade.Window):
     """
-    Main game controll class
+    Main game control class
     """
-
     def __init__(self):
         self.screen_width = constants.SCREEN_WIDTH
         self.screen_height = constants.SCREEN_HEIGHT
         super().__init__(self.screen_width, self.screen_height, 'Knife Throw')
 
         self.current_state = GameState.MENU
-        self.level = 1
+        self.level = 0
         self.wheel = None
         self.knife = None
         self.target = None
@@ -37,8 +35,10 @@ class Director(arcade.Window):
         self.knife_count_display = None
         self.knife_count_list_display = None
         self.knife_count = None
+        self.target_hit = None
 
-        self.score = None
+        self.score = 0
+        self.wheel_rotation_speed = 1
 
         self.start_knife_count = None
 
@@ -48,19 +48,20 @@ class Director(arcade.Window):
         """
         Initialization of all the game variables
         """
-
         self.knife_list = arcade.SpriteList()
         self.wheel_list = arcade.SpriteList()
         self.target_list = arcade.SpriteList()
         self.knife_count_list_display = arcade.SpriteList()
 
-        self.score = 0
         self.knife_count = 5
         self.start_knife_count = self.knife_count
+        self.target_hit = False
+        if self.level % 3 == 0:
+            self.wheel_rotation_speed += .25
 
         self.create_knife()
 
-        self.create_wheel()
+        self.create_wheel(self.wheel_rotation_speed)
 
         self.create_knife_count_display()
 
@@ -70,7 +71,6 @@ class Director(arcade.Window):
         """
         Method that creates the main menu
         """
-
         title = 'Knife Throw!'
         arcade.draw_text(title, self.screen_width * .5, self.screen_height * .7, arcade.color.ARSENIC, 40, align = 'center', anchor_x = 'center')
 
@@ -81,7 +81,6 @@ class Director(arcade.Window):
         """
         Method that creates the game view
         """
-
         self.knife_list.draw()
         self.wheel_list.draw()
         self.target_list.draw()
@@ -96,35 +95,54 @@ class Director(arcade.Window):
         output = f"{self.score}"
         arcade.draw_text(output, self.screen_width * 0.1, self.screen_height * 0.95, (239, 182, 90), 28,  align="center", anchor_x="center", anchor_y="center")
 
-    def draw_end(self):
+    def draw_level_end(self):
         """
         Method that draws the end screen: displays score, and asks player to play again
         """
-        score = f"Your score was: {self.score}"
+        score = f"Your score is: {self.score}"
         arcade.draw_text(score, self.screen_width * .5, self.screen_height * .7, arcade.color.ARSENIC, 40, align = 'center', anchor_x = 'center')
 
-        output = "Press ENTER to play again!"
+        output = "Press ENTER to keep going!"
         arcade.draw_text(output, self.screen_width * 0.5, self.screen_height * 0.35, arcade.color.BLACK, align="center", anchor_x="center")
+
+    def draw_game_end(self):
+        """
+        Method that draws the game over screen: displays score, level reached, and thanks 
+        player for playing
+        """
+        game_over = "Game Over"
+        arcade.draw_text(game_over, self.screen_width * .5, self.screen_height * .7, arcade.color.ARSENIC, 40, align = 'center', anchor_x = 'center')
+
+        score = f"Your score was: {self.score}"
+        arcade.draw_text(score, self.screen_width * .5, self.screen_height * .6, arcade.color.BLACK, 20, align = 'center', anchor_x = 'center')
+
+        level = f"Your reached level {self.level}"
+        arcade.draw_text(level, self.screen_width * .5, self.screen_height * .5, arcade.color.BLACK, 20, align = 'center', anchor_x = 'center')
+
+        thanks = 'Thanks for Playing!'
+        arcade.draw_text(thanks, self.screen_width * .5, self.screen_height * .35, arcade.color.ARSENIC, 40, align = 'center', anchor_x = 'center')
 
     def on_draw(self):
         """
         Render screen
         """
-
         arcade.start_render()
 
         if self.current_state == GameState.MENU:
             self.draw_menu()
         elif self.current_state == GameState.GAME_RUNNING:
             self.draw_game()
+        elif self.current_state == GameState.TARGET_DEFEATED:
+            self.draw_level_end()
         elif self.current_state == GameState.GAME_OVER:
-            self.draw_end()
+            self.draw_game_end()
 
     def on_key_press(self, key, key_modifiers):
         """
         Handle all key presses
         """
-        if key == arcade.key.ENTER and self.current_state == GameState.MENU or self.current_state == GameState.GAME_OVER:
+        if key == arcade.key.ENTER and self.current_state == GameState.MENU or self.current_state == GameState.TARGET_DEFEATED:
+            self.level += 1
             self.setup()
             self.current_state = GameState.GAME_RUNNING
 
@@ -146,7 +164,6 @@ class Director(arcade.Window):
         wheel_hit_list = arcade.check_for_collision_with_list(self.knife, self.wheel_list)
         if not self.knife.wheel_hit:
             for x in wheel_hit_list:
-                self.score -= 1
                 self.knife.hit_wheel(self.wheel)
 
                 if self.knife_count > 0:
@@ -156,6 +173,7 @@ class Director(arcade.Window):
         if not self.knife.target_hit:
             for x in target_hit_list:
                 self.score += 1
+                self.target_hit = True
                 self.knife.hit_target(self.wheel)
 
                 if self.knife_count > 0:
@@ -167,19 +185,16 @@ class Director(arcade.Window):
                 keep_running += 1
         
         if keep_running == 0:
-            self.current_state = GameState.GAME_OVER
+            if self.target_hit:
+                self.current_state = GameState.TARGET_DEFEATED
+            else:
+                self.current_state = GameState.GAME_OVER
 
-        # knife_hit_list = arcade.check_for_collision_with_list(self.knife, self.knife_list)
-        # if not self.knife.knife_hit:
-        #     for x in knife_hit_list:
-        #         self.score -= 1
-        #         self.knife.hit_knife(self.wheel)
-
-    def create_wheel(self):
+    def create_wheel(self, wheel_rotation_speed):
         """
         Create the wheel
         """
-        self.wheel = Wheel()
+        self.wheel = Wheel(wheel_rotation_speed)
         self.wheel_list.append(self.wheel)
 
     def create_knife(self):
@@ -193,7 +208,6 @@ class Director(arcade.Window):
         """
         Create knife count display
         """
-
         for i in range(self.knife_count):
             self.knife_count_display = KnifeCount('background', i)
             self.knife_count_list_display.append(self.knife_count_display)
@@ -223,5 +237,5 @@ class Director(arcade.Window):
                     position_set = True
             
             positions.append(target_position)
-            target = Target(positions[-1])
+            target = Target(positions[-1], self.wheel)
             self.target_list.append(target)
