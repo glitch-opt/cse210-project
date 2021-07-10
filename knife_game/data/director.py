@@ -72,11 +72,13 @@ class Director(arcade.Window):
         """
         Method that creates the main menu
         """
+        arcade.draw_rectangle_filled(self.screen_width / 2, self.screen_height / 2, self.screen_width - 30, self.screen_height / 2, arcade.color.BLACK)
+
         title = 'Knife Throw!'
-        arcade.draw_text(title, self.screen_width * .5, self.screen_height * .7, arcade.color.ARSENIC, 40, align = 'center', anchor_x = 'center')
+        arcade.draw_text(title, self.screen_width * .5, self.screen_height * .6, arcade.color.WHITE, 40, align = 'center', anchor_x = 'center')
 
         output = 'Press ENTER to Start'
-        arcade.draw_text(output, self.screen_width * 0.5, self.screen_height * 0.35, arcade.color.BLACK, align="center", anchor_x="center")
+        arcade.draw_text(output, self.screen_width * 0.5, self.screen_height * 0.35, arcade.color.WHITE, align="center", anchor_x="center")
     
     def draw_game(self):
         """
@@ -100,28 +102,32 @@ class Director(arcade.Window):
         """
         Method that draws the end screen: displays score, and asks player to play again
         """
+        arcade.draw_rectangle_filled(self.screen_width / 2, self.screen_height / 2, self.screen_width - 30, self.screen_height / 2, arcade.color.BLACK)
+        
         score = f"Your score is: {self.score}"
-        arcade.draw_text(score, self.screen_width * .5, self.screen_height * .7, arcade.color.ARSENIC, 40, align = 'center', anchor_x = 'center')
+        arcade.draw_text(score, self.screen_width * .5, self.screen_height * .6, arcade.color.WHITE, 40, align = 'center', anchor_x = 'center')
 
         output = "Press ENTER to keep going!"
-        arcade.draw_text(output, self.screen_width * 0.5, self.screen_height * 0.35, arcade.color.BLACK, align="center", anchor_x="center")
+        arcade.draw_text(output, self.screen_width * 0.5, self.screen_height * 0.35, arcade.color.WHITE, align="center", anchor_x="center")
 
     def draw_game_end(self):
         """
         Method that draws the game over screen: displays score, level reached, and thanks 
         player for playing
         """
+        arcade.draw_rectangle_filled(self.screen_width / 2, self.screen_height / 2, self.screen_width - 30, self.screen_height / 2, arcade.color.BLACK)
+
         game_over = "Game Over"
-        arcade.draw_text(game_over, self.screen_width * .5, self.screen_height * .7, arcade.color.ARSENIC, 40, align = 'center', anchor_x = 'center')
+        arcade.draw_text(game_over, self.screen_width * .5, self.screen_height * .65, arcade.color.WHITE, 40, align = 'center', anchor_x = 'center')
 
         score = f"Your score was: {self.score}"
-        arcade.draw_text(score, self.screen_width * .5, self.screen_height * .6, arcade.color.BLACK, 20, align = 'center', anchor_x = 'center')
+        arcade.draw_text(score, self.screen_width * .5, self.screen_height * .55, arcade.color.WHITE, 20, align = 'center', anchor_x = 'center')
 
-        level = f"Your reached level {self.level}"
-        arcade.draw_text(level, self.screen_width * .5, self.screen_height * .5, arcade.color.BLACK, 20, align = 'center', anchor_x = 'center')
+        level = f"You reached level {self.level}"
+        arcade.draw_text(level, self.screen_width * .5, self.screen_height * .45, arcade.color.WHITE, 20, align = 'center', anchor_x = 'center')
 
         thanks = 'Thanks for Playing!'
-        arcade.draw_text(thanks, self.screen_width * .5, self.screen_height * .35, arcade.color.ARSENIC, 40, align = 'center', anchor_x = 'center')
+        arcade.draw_text(thanks, self.screen_width * .5, self.screen_height * .3, arcade.color.WHITE, 40, align = 'center', anchor_x = 'center')
 
     def on_draw(self):
         """
