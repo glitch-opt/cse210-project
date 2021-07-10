@@ -43,6 +43,7 @@ class Director(arcade.Window):
         self.start_knife_count = None
 
         arcade.set_background_color(arcade.color.AVOCADO)
+        self.background_image = arcade.load_texture(constants.BACKGROUND)
 
     def setup(self):
         """
@@ -127,6 +128,8 @@ class Director(arcade.Window):
         Render screen
         """
         arcade.start_render()
+
+        arcade.draw_lrwh_rectangle_textured(0, 0, self.screen_width, self.screen_height, self.background_image)
 
         if self.current_state == GameState.MENU:
             self.draw_menu()
