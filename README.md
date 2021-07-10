@@ -1,11 +1,6 @@
-# Knife Hit Game
+# Knife Throw Game
 --- 
-When run, program will display a spinning wheel at the top of 
-the screen and a set of knives at the bottom of the screen.
-Player will attempt to throw all of the knives into the
-spinning wheel without any of the knives touching. Difficulty
-will increase by round (wheel will spin faster or more knives
-will need to fit in wheel).
+When run, program will display a spinning wheel with a random number of targets at the top of the screen and a set of knives at the bottom of the screen. You play the game by attempting to hit the targets with your knives until they run out. If you hit any of the targets at least once, you will be able to advance to the next level. The speed of the wheel spinning will increase as levels increase, making the game more and more difficult. See how high of a score you can get and what level you can reach!
 
 ## Getting Started
 ---
@@ -38,4 +33,3 @@ Arcade
 Rebekah Cramer
 Bracken Doney
 TJ O'Brien
-Tanner Wood
