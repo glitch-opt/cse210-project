@@ -21,9 +21,9 @@ def test_hit_target():
     and target_hit/wheel_hit equal true"""
     k = knife.Knife()
     k.hit_target(self)
-    assert k.change_y = 0
-    assert k.target_hit = True
-    assert k.wheel_hit = True
+    assert k.change_y == 0
+    assert k.target_hit == True
+    assert k.wheel_hit == True
 
 
 # Testing: director.py
@@ -76,7 +76,7 @@ def test_place_targets():
     d.setup(self)
     assert len(d.target_list) > 0 and len(d.target_list) < 5
 
-def test_speed_increase()
+def test_speed_increase():
     """Test Director.setup to verify that speed increases
     every 3rd level."""
     d = director.Director()
