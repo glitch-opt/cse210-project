@@ -17,7 +17,6 @@ class Target(arcade.Sprite):
         self.rotation_speed = self.wheel.wheel_rotation_speed
         self.rotation_radius = self.wheel.height / 2
         self.rotation_center = self.wheel.wheel_position
-        self.initial_target_position = position
 
         super().__init__(self.image, .05)
 

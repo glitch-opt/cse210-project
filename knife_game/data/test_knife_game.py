@@ -1,4 +1,5 @@
 import pytest
+import arcade
 import knife
 import constants
 import director
@@ -56,6 +57,12 @@ def test_on_key_press_space():
     after_throw = d.knife_count
     assert after_throw == before_throw - 1
 
+# Functions to test: (I hope this helps! I've never written tests so I don't know how easy/hard this will be to do)
+# place_targets (Director)
+# assert speed increases at every 3rd level (Director, setup)
+# hit_target (Knife)
+# assert when target_hit == True and keep_running == 0 that gamestate is TARGET_DEFEATED (Director, on_update)
+# assert that self.rotation == position (Target, __init__)
 
 # Call the main function that is part of pytest so that
 # the test functions in this file will execute.
