@@ -3,6 +3,8 @@ import arcade
 import knife
 import constants
 import director
+import target
+
 
 # Testing: knife.py
 
@@ -12,6 +14,16 @@ def test_throw():
     k = knife.Knife()
     k.throw()
     assert k.change_y == constants.KNIFE_THROWN_MOVEMENT_SPEED
+
+
+def test_hit_target():
+    """Test Knife.hit_target to verify that knife travel ends
+    and target_hit/wheel_hit equal true"""
+    k = knife.Knife()
+    k.hit_target(self)
+    assert k.change_y = 0
+    assert k.target_hit = True
+    assert k.wheel_hit = True
 
 
 # Testing: director.py
@@ -57,12 +69,39 @@ def test_on_key_press_space():
     after_throw = d.knife_count
     assert after_throw == before_throw - 1
 
-# Functions to test: (I hope this helps! I've never written tests so I don't know how easy/hard this will be to do)
-# place_targets (Director)
-# assert speed increases at every 3rd level (Director, setup)
-# hit_target (Knife)
-# assert when target_hit == True and keep_running == 0 that gamestate is TARGET_DEFEATED (Director, on_update)
-# assert that self.rotation == position (Target, __init__)
+def test_place_targets():
+    """Test Director.place_targets to verify that quantity of
+    targets placed is between 1-4."""
+    d = director.Director()
+    d.setup(self)
+    assert len(d.target_list) > 0 and len(d.target_list) < 5
+
+def test_speed_increase()
+    """Test Director.setup to verify that speed increases
+    every 3rd level."""
+    d = director.Director()
+    d.setup(self)
+    if self.level % 3 == 0:
+        assert self.wheel_rotation_speed += .25
+
+def test_on_update():
+    """Test Director.on_update to verify gamestate change
+    when a target is hit and keep_running = 0."""
+    d = director.Director()
+    d.on_update(self)
+    if keep_running == 0 and if self.target_hit:
+        assert self.current_state = GameState.TARGET_DEFEATED
+
+
+# Testing: target.py
+
+def test_target_position():
+    """Test Target.__init__ to verify that rotation is equal
+    to position."""
+    t = target.Target()
+    t.__init__(self, position, wheel)
+    assert self.rotation = position
+
 
 # Call the main function that is part of pytest so that
 # the test functions in this file will execute.
