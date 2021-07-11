@@ -7,6 +7,11 @@ from data.knifecount import KnifeCount
 from enum import Enum
 from data import constants
 
+'''
+Module contains the main control system for the functionality of the game, including
+the setup, update, and draw functions.
+'''
+
 class GameState(Enum):
     """ Store game state in enum """
     MENU = 1

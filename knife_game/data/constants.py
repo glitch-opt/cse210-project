@@ -1,3 +1,8 @@
+'''
+Module contains all files necessary for running the game, as well 
+as all constant variables needed for the program to run
+'''
+
 SCREEN_WIDTH = 500
 SCREEN_HEIGHT = 800
 

@@ -2,13 +2,16 @@ import arcade
 import math
 from data import constants
 
+'''
+Module contains the Target class, which operates the target sprite
+for players to shoot at
+'''
+
 class Target(arcade.Sprite):
     '''Class for targets on wheel for player to aim at.
 
     Stereotype:
         Information Holder
-
-    Attributes:
     '''
     def __init__(self, position, wheel):
         '''The class initializer'''

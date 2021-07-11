@@ -2,6 +2,11 @@ import arcade
 import math
 from data import constants
 
+'''
+Module contains the Knife class, which stands for the objects thrown to the 
+targets to hit them
+'''
+
 class Knife(arcade.Sprite):
     """
     Display class for the Knife

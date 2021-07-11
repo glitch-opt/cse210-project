@@ -1,6 +1,11 @@
 import arcade
 from data.director import Director
 
+'''
+Module runs the game by opening the director file and providing the 
+environment for arcade.run
+'''
+
 def main():
     window = Director()
     arcade.start_render()

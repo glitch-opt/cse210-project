@@ -5,7 +5,9 @@ import constants
 import director
 import target
 
-
+'''
+Module holds all tests for the program
+'''
 # Testing: knife.py
 
 def test_throw():

@@ -1,6 +1,11 @@
 import arcade
 from data import constants
 
+'''
+Module contains the Wheel class, which acts as the spinning holder for the 
+targets and the thrown knives
+'''
+
 class Wheel(arcade.Sprite):
     """
     Display class for the wheel
