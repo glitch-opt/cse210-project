@@ -244,7 +244,7 @@ class Director(arcade.Window):
 
                 too_close = 0
                 for target in self.target_list:
-                    distance = abs(target.initial_target_position - target_position)
+                    distance = abs(target.rotation - target_position)
                     if distance < 10 or distance > 350:
                         too_close += 1
                 if too_close == 0:
