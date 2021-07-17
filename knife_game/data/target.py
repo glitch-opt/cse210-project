@@ -1,11 +1,11 @@
-import arcade
-import math
-from data import constants
-
 '''
 Module contains the Target class, which operates the target sprite
 for players to shoot at
 '''
+
+import arcade
+import math
+from data import constants
 
 class Target(arcade.Sprite):
     '''Class for targets on wheel for player to aim at.

@@ -1,11 +1,11 @@
-import arcade
-import math
-from data import constants
-
 '''
 Module contains the Knife class, which stands for the objects thrown to the 
 targets to hit them
 '''
+
+import arcade
+import math
+from data import constants
 
 class Knife(arcade.Sprite):
     """

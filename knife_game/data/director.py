@@ -1,3 +1,8 @@
+'''
+Module contains the main control system for the functionality of the game, including
+the setup, update, and draw functions.
+'''
+
 import arcade
 import random
 from data.wheel import Wheel
@@ -6,11 +11,6 @@ from data.target import Target
 from data.knifecount import KnifeCount
 from enum import Enum
 from data import constants
-
-'''
-Module contains the main control system for the functionality of the game, including
-the setup, update, and draw functions.
-'''
 
 class GameState(Enum):
     """ Store game state in enum """

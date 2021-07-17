@@ -1,10 +1,10 @@
-import arcade
-from data import constants
-
 '''
 Module contains the Wheel class, which acts as the spinning holder for the 
 targets and the thrown knives
 '''
+
+import arcade
+from data import constants
 
 class Wheel(arcade.Sprite):
     """

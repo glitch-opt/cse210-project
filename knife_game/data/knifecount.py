@@ -1,9 +1,9 @@
-import arcade
-from data import constants
-
 '''
 Module for the KnifeCount class, which holds information about the knife count in game.
 '''
+
+import arcade
+from data import constants
 
 class KnifeCount(arcade.Sprite):
     """

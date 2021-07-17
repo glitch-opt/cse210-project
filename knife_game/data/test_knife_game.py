@@ -1,3 +1,7 @@
+'''
+Module holds all tests for the program
+'''
+
 import pytest
 import arcade
 import knife
@@ -5,9 +9,6 @@ import constants
 import director
 import target
 
-'''
-Module holds all tests for the program
-'''
 # Testing: knife.py
 
 def test_throw():
