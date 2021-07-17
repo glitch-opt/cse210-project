@@ -9,6 +9,7 @@ from data import wheel
 from data import constants
 from data import director
 from data import target
+from data import knifecount
 
 # Testing: knife.py
 
@@ -28,6 +29,15 @@ def test_hit_target():
     k.hit_target(w)
     assert k.change_y == 0
     assert k.target_hit == True
+    assert k.wheel_hit == True
+
+def test_hit_wheel():
+    """Test Knife.hit_target to verify that knife travel ends
+    and target_hit/wheel_hit equal true"""
+    k = knife.Knife()
+    w = wheel.Wheel(1)
+    k.hit_wheel(w)
+    assert k.change_y == 0
     assert k.wheel_hit == True
 
 
@@ -106,6 +116,14 @@ def test_target_position():
     w = wheel.Wheel(1)
     t = target.Target(50, w)
     assert t.rotation = 50
+
+def test_knife_count():
+    """
+    Test knifecount class
+    """
+    k = knifecount.KnifeCount(arcade.color.AVOCADO, 5)
+    assert k.knife_count = 5
+
 
 
 # Call the main function that is part of pytest so that
