@@ -21,6 +21,10 @@ class Knife(arcade.Sprite):
         self.screen_height = constants.SCREEN_HEIGHT
         self.knife_position = (self.screen_width // 2, self.screen_height * (0.2))
 
+        self.knife_throw_sound = arcade.load_sound(constants.KNIFE_THROW_SOUND)
+        self.knife_hit_wheel_sound = arcade.load_sound(constants.KNIFE_HIT_WHEEL_SOUND)
+        self.knife_hit_target_sound = arcade.load_sound(constants.KNIFE_HIT_TARGET_SOUND)
+
         super().__init__(self.image, .25)
 
         self.center_x = self.knife_position[0]
@@ -38,6 +42,7 @@ class Knife(arcade.Sprite):
     def throw(self):
         """" Throw the knife """
         self.change_y = constants.KNIFE_THROWN_MOVEMENT_SPEED
+        arcade.play_sound(self.knife_throw_sound)
 
     def hit_wheel(self, wheel):
         '''Initializes the wheel hit state
@@ -46,6 +51,7 @@ class Knife(arcade.Sprite):
             wheel (Wheel): A Wheel object
         '''
         self.stuck_in_wheel = wheel
+        arcade.play_sound(self.knife_hit_wheel_sound)
 
         self.wheel_hit = True
         self.change_y = 0
@@ -58,6 +64,7 @@ class Knife(arcade.Sprite):
         Initializes the wheel hit and the target hit state
         '''
         self.stuck_in_wheel = wheel
+        arcade.play_sound(self.knife_hit_target_sound)
 
         self.target_hit = True
         self.wheel_hit = True

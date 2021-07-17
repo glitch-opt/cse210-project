@@ -49,6 +49,7 @@ class Director(arcade.Window):
 
         arcade.set_background_color(arcade.color.AVOCADO)
         self.background_image = arcade.load_texture(constants.BACKGROUND)
+        self.background_music = arcade.load_sound(constants.BACKGROUND_MUSIC)
 
     def setup(self):
         """
@@ -58,6 +59,8 @@ class Director(arcade.Window):
         self.wheel_list = arcade.SpriteList()
         self.target_list = arcade.SpriteList()
         self.knife_count_list_display = arcade.SpriteList()
+
+        arcade.play_sound(self.background_music, looping=True)
 
         self.knife_count = 5
         self.start_knife_count = self.knife_count
