@@ -97,15 +97,15 @@ def test_speed_increase():
     d = director.Director()
     d.setup()
     if d.level % 3 == 0:
-        assert d.wheel_rotation_speed = 1.50
+        assert d.wheel_rotation_speed == 1.50
 
 def test_on_update():
     """Test Director.on_update to verify gamestate change
     when a target is hit and keep_running = 0."""
     d = director.Director()
     d.on_update()
-    if keep_running == 0 and if d.target_hit:
-        assert d.current_state = GameState.TARGET_DEFEATED
+    if keep_running == 0 and d.target_hit:
+        assert d.current_state == GameState.TARGET_DEFEATED
 
 
 # Testing: target.py
@@ -115,14 +115,14 @@ def test_target_position():
     to position."""
     w = wheel.Wheel(1)
     t = target.Target(50, w)
-    assert t.rotation = 50
+    assert t.rotation == 50
 
 def test_knife_count():
     """
     Test knifecount class
     """
     k = knifecount.KnifeCount(arcade.color.AVOCADO, 5)
-    assert k.knife_count = 5
+    assert k.knife_count == 5
 
 
 
